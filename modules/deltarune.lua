@@ -517,6 +517,42 @@ local materials = {
 			end
 		end
 	},
+	"whiteribbon", whiteribbon = {
+		craft_id = "dr_whiterbn",
+		pos = { x = 5, y = 0 },
+		type = "relic",
+		rarity = "uncommon",
+		unique = true,
+		--min_stake = 999,
+		min_ante = 1,
+		max_ante = 3,
+		max_obtain_cap = 1,
+		loc_vars = function(self, info_queue, card)
+			return {vars = {
+				colours = {
+					self.rarity ~= "common" and G.C["ygg_"..self.rarity] or G.C.GREY,
+				},
+			}}
+		end,
+		calculate = function(self, card, context)
+		end,
+		on_equip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						SMODS.change_discard_limit(1)
+					end
+				return true end}))
+		end,
+		on_unequip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						SMODS.change_discard_limit(-1)
+					end
+				return true end}))
+		end,--]]
+	},
 	"pinkribbon", pinkribbon = {
 		craft_id = "dr_pinkrbn",
 		pos = { x = 6, y = 0 },
@@ -551,6 +587,80 @@ local materials = {
 					if G.hand then
 						G.hand.config.real_card_limit = (G.hand.config.real_card_limit or G.hand.config.card_limit) - 1
 						G.hand.config.card_limit = math.max(0, G.hand.config.real_card_limit)
+					end
+				return true end}))
+		end,--]]
+	},
+	"blueribbon", blueribbon = {
+		craft_id = "dr_bluerbn",
+		pos = { x = 5, y = 1 },
+		type = "relic",
+		rarity = "rare",
+		unique = true,
+		--min_stake = 999,
+		min_ante = 3,
+		max_ante = 3,
+		max_obtain_cap = 1,
+		loc_vars = function(self, info_queue, card)
+			return {vars = {
+				colours = {
+					self.rarity ~= "common" and G.C["ygg_"..self.rarity] or G.C.GREY,
+				},
+			}}
+		end,
+		calculate = function(self, card, context)
+		end,
+		on_equip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						SMODS.change_play_limit(1)
+					end
+				return true end}))
+		end,
+		on_unequip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						SMODS.change_play_limit(-1)
+					end
+				return true end}))
+		end,--]]
+	},
+	"twinribbon", twinribbon = {
+		craft_id = "dr_twinrbn",
+		pos = { x = 6, y = 1 },
+		type = "relic",
+		rarity = "rare",
+		unique = true,
+		min_stake = 999,
+		max_obtain_cap = 1,
+		loc_vars = function(self, info_queue, card)
+			return {vars = {
+				colours = {
+					self.rarity ~= "common" and G.C["ygg_"..self.rarity] or G.C.GREY,
+				},
+			}}
+		end,
+		calculate = function(self, card, context)
+		end,
+		on_equip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						G.hand.config.real_card_limit = (G.hand.config.real_card_limit or G.hand.config.card_limit) + 1
+						G.hand.config.card_limit = math.max(0, G.hand.config.real_card_limit)
+						SMODS.change_discard_limit(1)
+					end
+				return true end}))
+		end,
+		on_unequip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.hand then
+						G.hand.config.real_card_limit = (G.hand.config.real_card_limit or G.hand.config.card_limit) - 1
+						G.hand.config.card_limit = math.max(0, G.hand.config.real_card_limit)
+						SMODS.change_discard_limit(-1)
 					end
 				return true end}))
 		end,--]]
@@ -717,6 +827,54 @@ local recipes = {
 			{"cs", "cs", "cs"},
 			{"cs", "dr_essence", "cs"},
 			{"dr_essence", "cs"},
+		},
+		config = {
+			amount = 1,
+			unique = true,
+		},
+	},
+	
+	"whiteribbon", whiteribbon = {
+		card_key = "ygg_mat_bub_whiteribbon",
+		recipe = {
+			{"dr_essence", "cs", "dr_essence"},
+			{"cs", "dr_essence", "cs"},
+			{"dr_essence", "cs", "dr_essence"},
+		},
+		config = {
+			amount = 1,
+			unique = true,
+		},
+	},
+	"pinkribbon", pinkribbon = {
+		card_key = "ygg_mat_bub_pinkribbon",
+		recipe = {
+			{"sh", "cs", "sh"},
+			{"cs", "dr_whiterbn", "cs"},
+			{"sh", "cs", "sh"},
+		},
+		config = {
+			amount = 1,
+			unique = true,
+		},
+	},
+	"twinribbon", twinribbon = {
+		card_key = "ygg_mat_bub_twinribbon",
+		recipe = {
+			{"dr_whiterbn", "dr_pinkrbn", "hc"},
+		},
+		config = {
+			amount = 1,
+			unique = true,
+			no_order = true,
+		},
+	},
+	"blueribbon", blueribbon = {
+		card_key = "ygg_mat_bub_blueribbon",
+		recipe = {
+			{"sh", "hac", "sh"},
+			{"hac", "dr_whiterbn", "hac"},
+			{"sh", "hac", "sh"},
 		},
 		config = {
 			amount = 1,

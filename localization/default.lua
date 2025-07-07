@@ -1049,6 +1049,23 @@ return {
                     "{C:inactive}(Only one copy can exist)",
                 }
 			},
+			ygg_mat_bub_whiteribbon = {
+                name = {
+					"White Ribbon",
+					"{s:0.5}DELTARUNE{}",
+				},
+                text = {
+                    "{C:inactive}(Rarity: {}{V:1}Uncommon{}{C:inactive}){}",
+                    "{s:0.15} ",
+                    "While {C:attention}Equipped{},",
+                    "{C:attention}+1{C:red} Discard{} card limit",
+                    "{s:0.15} ",
+                    "{C:inactive}A crinkly hair ribbon that",
+                    "{C:inactive}slightly increases your defense",
+                    "{s:0.15} ",
+                    "{C:inactive}(Only one copy can exist)",
+                }
+			},
 			ygg_mat_bub_pinkribbon = {
                 name = {
 					"Pink Ribbon",
@@ -1062,6 +1079,41 @@ return {
                     "{s:0.15} ",
                     "{C:inactive}A cute hair ribbon that increases",
                     "{C:inactive}the range bullets increase tension",
+                    "{s:0.15} ",
+                    "{C:inactive}(Only one copy can exist)",
+                }
+			},
+			ygg_mat_bub_blueribbon = {
+                name = {
+					"Blue Ribbon",
+					"{s:0.5}DELTARUNE{}",
+				},
+                text = {
+                    "{C:inactive}(Rarity: {}{V:1}Rare{}{C:inactive}){}",
+                    "{s:0.15} ",
+                    "While {C:attention}Equipped{},",
+                    "{C:attention}+1{C:blue} Hand{} card limit",
+                    "{s:0.15} ",
+                    "{C:inactive}A blue cheer bow. When the user uses a",
+                    "{C:inactive}healing move, it recovers slightly more HP",
+                    "{s:0.15} ",
+                    "{C:inactive}(Only one copy can exist)",
+                }
+			},
+			ygg_mat_bub_twinribbon = {
+                name = {
+					"Twin Ribbon",
+					"{s:0.5}DELTARUNE{}",
+				},
+                text = {
+                    "{C:inactive}(Rarity: {}{V:1}Rare{}{C:inactive}){}",
+                    "{s:0.15} ",
+                    "While {C:attention}Equipped{},",
+                    "{C:attention}+1{} hand size and",
+                    "{C:attention}+1{C:red} Discard{} card limit",
+                    "{s:0.15} ",
+                    "{C:inactive}Two ribbons. You'll have to put",
+                    "{C:inactive}your hair into pigtails",
                     "{s:0.15} ",
                     "{C:inactive}(Only one copy can exist)",
                 }

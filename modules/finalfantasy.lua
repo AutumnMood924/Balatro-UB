@@ -745,6 +745,11 @@ local jokers = {
 	},
 	'lich', lich = {
         config = { extra = {
+			chips = 10,
+			mult = 2,
+			dollars = 1,
+			xmult = 0.15,
+			retrigger_threshold = 3,
         }},
         pos = { x = 4, y = 3 },
         cost = 8,
@@ -754,21 +759,69 @@ local jokers = {
         perishable_compat = true,
         rental_compat = true,
 		loc_vars = function(self, info_queue, card)
+			local _spades = AMM.api.graveyard.count_suit("Spades")
+			local _clubs = AMM.api.graveyard.count_suit("Clubs")
+			local _diamonds = AMM.api.graveyard.count_suit("Diamonds")
+			local _hearts = AMM.api.graveyard.count_suit("Hearts")
+			local _others = AMM.api.graveyard.filter_count(function(v)
+				if not SMODS.has_any_suit(v) then
+					if SMODS.has_no_suit(v) or (not v:is_suit("Spades", true) and not v:is_suit("Hearts", true) and not v:is_suit("Clubs", true) and not v:is_suit("Diamonds", true)) then
+						return true
+					end
+				end
+			end)
+			
 			return {
 				vars = {
-					10, 0,
-					2, 0,
-					1, 0,
-					0.15, 1,
-					3, "s", 0
+					card.ability.extra.chips, card.ability.extra.chips * _spades,
+					card.ability.extra.mult, card.ability.extra.mult * _clubs,
+					card.ability.extra.dollars, card.ability.extra.dollars * _diamonds,
+					card.ability.extra.xmult, 1 + (card.ability.extra.xmult * _hearts),
+					card.ability.extra.retrigger_threshold, card.ability.extra.retrigger_threshold == 1 and "" or "s", math.floor(_others / card.ability.extra.retrigger_threshold)
 				}
 			}
         end,
         calculate = function(self, card, context)
+			if context.retrigger_joker_check and context.other_card == card then
+				local _others = AMM.api.graveyard.filter_count(function(v)
+					if not SMODS.has_any_suit(v) then
+						if SMODS.has_no_suit(v) or (not v:is_suit("Spades", true) and not v:is_suit("Hearts", true) and not v:is_suit("Clubs", true) and not v:is_suit("Diamonds", true)) then
+							return true
+						end
+					end
+				end)
+				local reps = math.floor(_others / card.ability.extra.retrigger_threshold)
+				if reps < 1 then return end
+				return {
+					repetitions = reps
+				}
+			end
+			if context.joker_main then
+				local ret = {}
+				local _spades = AMM.api.graveyard.count_suit("Spades")
+				local _clubs = AMM.api.graveyard.count_suit("Clubs")
+				local _hearts = AMM.api.graveyard.count_suit("Hearts")
+				
+				if _spades > 0 then
+					ret["chips"] = card.ability.extra.chips * _spades
+				end
+				if _clubs > 0 then
+					ret["mult"] = card.ability.extra.mult * _clubs
+				end
+				if _hearts > 0 then
+					ret["xmult"] = 1 + (card.ability.extra.xmult * _hearts)
+				end
+				
+				return ret
+			end
         end,
-		in_pool = function(self)
-			return false
-		end,
+        calc_dollar_bonus = function(self, card)
+			local _diamonds = AMM.api.graveyard.count_suit("Diamonds")
+			
+            if _diamonds > 0 then
+				return math.floor(_diamonds * card.ability.extra.dollars)
+			end
+        end,
 	},
 	'marilith', marilith = {
         config = {
