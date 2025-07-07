@@ -1,0 +1,23 @@
+{
+	"id": "Balatro_UB",
+	"name": "Balatro-UB",
+	"author": ["AutumnMood (It/They/She)"],
+	"description": "Balatro-UB",
+	"prefix": "bub",
+	"main_file": "main.lua",
+	"priority": 666,
+	"badge_colour": "122597",
+	"badge_text_colour": "666666",
+	"display_name": "Balatro-UB",
+	"version": "0.0.0",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-0623b)",
+		"Lovely (>=0.7.1)",
+		"AutumnMoodMechanics (>=0.0.0)"
+	],
+	"conflicts": [
+		"Talisman (>=0.0.0)"
+	],
+	"provides": [],
+	"dump_loc": false 
+}

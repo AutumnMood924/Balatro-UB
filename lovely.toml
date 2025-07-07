@@ -1,0 +1,119 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2
+
+# custom hover sfx
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
+'''
+position = "before"
+payload = '''
+local bubobj = self.config.center
+if bubobj.hover_sound then
+play_sound(bubobj.hover_sound, math.random()*0.2 + 0.9, 0.35)
+else
+'''
+match_indent = true
+overwrite = false
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+overwrite = false
+
+# custom select sfx
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+pattern = '''
+if not silent then play_sound('cardSlide1') end
+'''
+position = "before"
+payload = '''
+local bubobj = card.config.center
+if bubobj.select_sound and not silent then
+play_sound(bubobj.select_sound)
+else
+'''
+match_indent = true
+overwrite = false
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+pattern = '''
+if not silent then play_sound('cardSlide1') end
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+play_sound('cardSlide1', 0.85 + percent*0.2)
+'''
+position = "before"
+payload = '''
+local bubobj = card.config.center
+if bubobj.select_sound then
+play_sound(bubobj.select_sound, 0.85 + percent*0.2)
+else
+'''
+match_indent = true
+overwrite = false
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''
+play_sound('cardSlide1', 0.85 + percent*0.2)
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+overwrite = false
+
+# custom deselect sfx
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+play_sound('cardSlide2', nil, 0.3)
+'''
+position = "before"
+payload = '''
+local bubobj = self.config.center
+if bubobj.deselect_sound then
+play_sound(bubobj.deselect_sound, nil, 0.3)
+else
+'''
+match_indent = true
+overwrite = false
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+play_sound('cardSlide2', nil, 0.3)
+'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+overwrite = false
