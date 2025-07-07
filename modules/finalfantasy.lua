@@ -561,6 +561,9 @@ local jokers = {
 				return { xp = card.ability.extra.xp }
 			end
         end,
+		load_check = function()
+			return next(SMODS.find_mod("YGGDRASIL")) and true
+		end,
 	},
 	'white_shark', white_shark = {
         config = { extra = {
