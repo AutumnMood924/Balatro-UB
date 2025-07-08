@@ -665,6 +665,46 @@ local materials = {
 				return true end}))
 		end,--]]
 	},
+	"jevilstail", jevilstail = {
+		craft_id = "dr_jevilstail",
+		pos = { x = 2, y = 3 },
+		type = "relic",
+		rarity = "exotic",
+		unique = true,
+		min_stake = 999,
+		max_obtain_cap = 1,
+		loc_vars = function(self, info_queue, card)
+			return {vars = {
+				colours = {
+					self.rarity ~= "common" and G.C["ygg_"..self.rarity] or G.C.GREY,
+				},
+			}}
+		end,
+		calculate = function(self, card, context)
+		end,
+		on_equip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.consumeables then
+						G.consumeables.config.real_card_limit = (G.consumeables.config.real_card_limit or G.consumeables.config.card_limit) + 2
+						G.consumeables.config.card_limit = math.max(0, G.consumeables.config.real_card_limit)
+						SMODS.change_play_limit(2)
+						SMODS.change_discard_limit(2)
+					end
+				return true end}))
+		end,
+		on_unequip = function(self, card)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					if G.consumeables then
+						G.consumeables.config.real_card_limit = (G.consumeables.config.real_card_limit or G.consumeables.config.card_limit) - 2
+						G.consumeables.config.card_limit = math.max(0, G.consumeables.config.real_card_limit)
+						SMODS.change_play_limit(-2)
+						SMODS.change_discard_limit(-2)
+					end
+				return true end}))
+		end,--]]
+	},
 	"banana", banana = {
 		craft_id = "dr_banana",
 		pos = { x = 4, y = 1 },
@@ -879,6 +919,20 @@ local recipes = {
 		config = {
 			amount = 1,
 			unique = true,
+		},
+	},
+	
+	"jevilstail", jevilstail = {
+		card_key = "ygg_mat_bub_jevilstail",
+		recipe = {
+			{"fj", "hj", "fbj"},
+			{"s_p", "dr_sc", "c_b"},
+			{"d_s", "sf", "c_t"},
+		},
+		config = {
+			amount = 1,
+			unique = true,
+			no_order = true,
 		},
 	},
 	

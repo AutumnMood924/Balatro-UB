@@ -264,6 +264,63 @@ data.buffer_register_funcs = {
 	end,
 }
 
+local BUB_JoyousSpring = next(SMODS.find_mod("JoyousSpring")) and {
+		["warrior"] = { attribute = "LIGHT", monster_type = "Warrior" },
+		["thief"] = { attribute = "DARK", monster_type = "Warrior" },
+		["monk"] = { attribute = "EARTH", monster_type = "Warrior" },
+		["red_mage"] = { attribute = "EARTH", monster_type = "Spellcaster" },
+		["black_mage"] = { attribute = "DARK", monster_type = "Spellcaster" },
+		["white_mage"] = { attribute = "LIGHT", monster_type = "Spellcaster" },
+		["weapon_shop"] = { attribute = "DARK", monster_type = "Warrior", is_tuner = true },
+		["armor_shop"] = { attribute = "EARTH", monster_type = "Warrior", is_tuner = true },
+		["item_shop"] = { attribute = "LIGHT", monster_type = "Warrior", is_tuner = true },
+		["oasis_merchant"] = { attribute = "EARTH", monster_type = "Warrior", is_tuner = true },
+		["knight"] = { attribute = "LIGHT", monster_type = "Warrior" },
+		["ninja"] = { attribute = "DARK", monster_type = "Warrior" },
+		["master"] = { attribute = "EARTH", monster_type = "Warrior" },
+		["red_wizard"] = { attribute = "EARTH", monster_type = "Spellcaster" },
+		["black_wizard"] = { attribute = "DARK", monster_type = "Spellcaster" },
+		["white_wizard"] = { attribute = "LIGHT", monster_type = "Spellcaster" },
+		["white_magic_shop"] = { attribute = "LIGHT", monster_type = "Spellcaster", is_tuner = true },
+		["black_magic_shop"] = { attribute = "DARK", monster_type = "Spellcaster", is_tuner = true },
+		["innkeeper"] = { attribute = "LIGHT", monster_type = "Warrior", is_tuner = true },
+		["clergyman"] = { attribute = "LIGHT", monster_type = "Spellcaster", is_tuner = true },
+		["crazy_horse"] = { attribute = "DARK", monster_type = "Beast" },
+		["pirate"] = { attribute = "WATER", monster_type = "Warrior" },
+		["green_ogre"] = { attribute = "EARTH", monster_type = "BeastWarrior" },
+		["piscodemon"] = { attribute = "DARK", monster_type = "Fiend" },
+		["astos"] = { attribute = "DARK", monster_type = "Fairy" },
+		["hill_gigas"] = { attribute = "EARTH", monster_type = "Warrior" },
+		["fire_hydra"] = { attribute = "FIRE", monster_type = "Reptile" },
+		["desert_baretta"] = { attribute = "EARTH", monster_type = "Reptile" },
+		["white_shark"] = { attribute = "WATER", monster_type = "Fish" },
+		["spirit_naga"] = { attribute = "WIND", monster_type = "Reptile" },
+		["evil_eye"] = { attribute = "DARK", monster_type = "Fiend" },
+		["zombie_dragon"] = { attribute = "DARK", monster_type = "Zombie" },
+		["warmech"] = { attribute = "DARK", monster_type = "Machine" },
+		["purple_worm"] = { attribute = "DARK", monster_type = "Insect" },
+		["lich"] = { attribute = "EARTH", monster_type = "Fiend" },
+		["marilith"] = { attribute = "FIRE", monster_type = "Fiend" },
+		["kraken"] = { attribute = "WATER", monster_type = "Fiend" },
+		["tiamat"] = { attribute = "WIND", monster_type = "Fiend" },
+		["garland"] = { attribute = "DARK", monster_type = "Warrior", is_tuner = true },
+		["chaos"] = { attribute = "DARK", monster_type = "Fiend" },
+		
+		["rudinn"] = { attribute = "DARK", monster_type = "Warrior" },
+		["hathy"] = { attribute = "DARK", monster_type = "Spellcaster", is_tuner = true },
+		["clover"] = { attribute = "DARK", monster_type = "Beast", is_tuner = true },
+		["cround"] = { attribute = "DARK", monster_type = "Warrior", is_tuner = true },
+		["kround"] = { attribute = "DARK", monster_type = "Warrior" },
+		["rudinn_ranger"] = { attribute = "DARK", monster_type = "Warrior" },
+		["head_hathy"] = { attribute = "DARK", monster_type = "Spellcaster", is_tuner = true },
+		["lancer"] = { attribute = "DARK", monster_type = "Warrior" },
+		["king"] = { attribute = "DARK", monster_type = "Warrior" },
+		["jevil"] = { attribute = "DARK", monster_type = "Fiend" },
+		["roaring_knight"] = { attribute = "DARK", monster_type = "Warrior" },
+		["jackenstein"] = { attribute = "DARK", monster_type = "Warrior" },
+	} or nil
+
+
 function data.buffer_insert(buffer, object, extra)
 	if extra then
 		for k, v in pairs(extra) do
@@ -272,14 +329,32 @@ function data.buffer_insert(buffer, object, extra)
 			end
 		end
 	end
+	if BUB_JoyousSpring and BUB_JoyousSpring[object.key] then
+		local this_trait = BUB_JoyousSpring[object.key]
+		if not object.config then
+			object.config = {}
+		end
+		if type(object.config.extra) == "nil" then
+			object.config.extra = {}
+		end
+		if type(object.config.extra) == "table" and not object.config.extra.joyous_spring then
+			object.generate_ui = JoyousSpring.generate_info_ui
+			object.config.extra.joyous_spring = JoyousSpring.init_joy_table {
+				attribute = this_trait.attribute,
+				monster_type = this_trait.monster_type,
+				is_tuner = this_trait.is_tuner,
+				is_normal = this_trait.is_normal,
+			}
+		end
+	end
 	table.insert(data.BUFFERS[buffer], object)
 end
 
 -- DO NOT CALL THIS FUNCTION ANY ADDITIONAL TIMES
 function data.register_objects()
 	for k, v in pairs(data.BUFFERS) do
-		for _, i in ipairs(v) do
-			data.buffer_register_funcs[k](i)
+		for _, obj in ipairs(v) do
+			data.buffer_register_funcs[k](obj)
 		end
 	end
 	data.BUFFERS = nil

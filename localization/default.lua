@@ -976,7 +976,7 @@ return {
                 text = {
                     "{C:inactive}(Rarity: {}{V:1}Legendary{}{C:inactive}){}",
                     "{s:0.15} ",
-					"{C:inactive}A sharp shadow moves like",
+					"{C:inactive}A sharp {C:dark_edition}shadow{} moves like",
 					"{C:inactive}water in the hand",
                 }
 			},
@@ -1114,6 +1114,24 @@ return {
                     "{s:0.15} ",
                     "{C:inactive}Two ribbons. You'll have to put",
                     "{C:inactive}your hair into pigtails",
+                    "{s:0.15} ",
+                    "{C:inactive}(Only one copy can exist)",
+                }
+			},
+			ygg_mat_bub_jevilstail = {
+                name = {
+					"Jevilstail",
+					"{s:0.5}DELTARUNE: Chapter 1{}",
+				},
+                text = {
+                    "{C:inactive}(Rarity: {}{V:1}Exotic{}{C:inactive}){}",
+                    "{s:0.15} ",
+                    "While {C:attention}Equipped{},",
+                    "{C:attention}+2{C:blue} Hand{} and {C:red}Discard{} card limits,",
+					"and {C:attention}+2{C:purple} consumable{} slots",
+                    "{s:0.15} ",
+                    "{C:inactive}A J-shaped tail that gives you",
+                    "{C:dark_edition}devilenergy",
                     "{s:0.15} ",
                     "{C:inactive}(Only one copy can exist)",
                 }
