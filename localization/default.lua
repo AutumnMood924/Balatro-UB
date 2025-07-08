@@ -918,6 +918,56 @@ return {
 				},
 			},
 		},
+		Energy = {
+            c_bub_dark_energy = {
+                name = "{C:joy_dark}DARK{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_dark,C:white}DARK{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+            c_bub_earth_energy = {
+                name = "{C:joy_earth}EARTH{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_earth,C:white}EARTH{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+            c_bub_fire_energy = {
+                name = "{C:joy_fire}FIRE{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_fire,C:white}FIRE{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+            c_bub_light_energy = {
+                name = "{C:joy_light}LIGHT{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_light,C:white}LIGHT{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+            c_bub_water_energy = {
+                name = "{C:joy_water}WATER{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_water,C:white}WATER{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+            c_bub_wind_energy = {
+                name = "{C:joy_wind}WIND{} Attribute Energy",
+                text = {
+                    "{C:pink}Energize{} leftmost or selected",
+                    "{X:joy_wind,C:white}WIND{C:joy_normal} Monster {}Joker if able",
+                    "{C:inactive}(Max of {C:attention}#1#{C:inactive} increases per Joker)",
+                },
+            },
+		},
 		Voucher = {
 		},
 		Enhanced = {

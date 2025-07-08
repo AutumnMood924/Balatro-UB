@@ -513,3 +513,114 @@ for _, k in ipairs(oddities) do
 	if not v.rarity then v.rarity = 1 end
 	BUB.data.buffer_insert("Consumables", v, {set = "Oddity", key = k, atlas = "yugioh_oddities"})
 end
+
+if next(SMODS.find_mod("Pokermon")) then
+	SMODS.Atlas{
+		key = "yugioh_energy",
+		path = "yugioh_energy.png",
+		px = 71,
+		py = 95,
+	}
+	
+	-- Hook energy_matches (god why is this a global with that name)
+	-- to check yugioh attributes if given an attribute
+	-- they're in all caps.
+	
+	local alias__energy_matches = energy_matches
+	energy_matches = function(card, etype, include_colorless)
+		if etype == "DARK" or etype == "DIVINE" or etype == "EARTH" or etype == "FIRE" or etype == "LIGHT" or etype == "WATER" or etype == "WIND" then
+			if JoyousSpring.is_attribute(card, etype) then return true end
+		else
+			return alias__energy_matches(card, etype, include_colorless)
+		end
+	end
+	
+	local nrg_use = function(self, card, area, copier)
+		if not G.jokers.highlighted or #G.jokers.highlighted ~= 1 then
+			return energy_use(self, card, area, copier)
+		else
+			return highlighted_energy_use(self, card, area, copier)
+		end
+	end
+	local nrg_can_use = function(self, card)
+		if not G.jokers.highlighted or #G.jokers.highlighted ~= 1 then
+			return energy_can_use(self, card)
+		else
+			return highlighted_energy_can_use(self, card)
+		end
+	end
+	
+	local energy = {
+		"dark_energy", dark_energy = {
+			pos = { x = 0, y = 0 },
+			cost = 4,
+			etype = "DARK",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+		"earth_energy", earth_energy = {
+			pos = { x = 1, y = 0 },
+			cost = 4,
+			etype = "EARTH",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+		"fire_energy", fire_energy = {
+			pos = { x = 2, y = 0 },
+			cost = 4,
+			etype = "FIRE",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+		"light_energy", light_energy = {
+			pos = { x = 3, y = 0 },
+			cost = 4,
+			etype = "LIGHT",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+		"water_energy", water_energy = {
+			pos = { x = 4, y = 0 },
+			cost = 4,
+			etype = "WATER",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+		"wind_energy", wind_energy = {
+			pos = { x = 5, y = 0 },
+			cost = 4,
+			etype = "WIND",
+			loc_vars = function(self, info_queue, center)
+				info_queue[#info_queue+1] = {set = 'Other', key = 'energize'}
+				return {vars = {(pokermon_config.unlimited_energy and localize("poke_unlimited_energy")) or energy_max + (G.GAME.energy_plus or 0)}}
+			end,
+			can_use = nrg_can_use,
+			use = nrg_use
+		},
+	}
+	--energy
+	for _, k in ipairs(energy) do
+		local v = energy[k]
+		BUB.data.buffer_insert("Consumables", v, {set = "Energy", key = k, atlas = "yugioh_energy"})
+	end
+end
