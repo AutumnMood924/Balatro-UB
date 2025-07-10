@@ -824,6 +824,26 @@ return {
 					},
 				},
 			},
+			j_bub_enraged_battle_ox = {
+				name = "{C:joy_effect}Enraged Battle Ox",
+				text = {
+					{
+						"{C:joy_normal}Beast{}, {C:joy_normal}Beast-Warrior{}, and {C:joy_normal}Winged Beast",
+						"{C:attention}Jokers{} each give {C:chips}+#1#{} Chips",
+					},
+				},
+			},
+			j_bub_element_dragon = {
+				name = "{C:joy_effect}Element Dragon",
+				text = {
+					{
+						"{C:mult}+#1#{} Mult, plus an additional",
+						"{C:mult}+#2#{} Mult if a {C:joy_fire}FIRE{C:attention} Joker{} is owned",
+						"{C:attention}Retrigger{} this {C:attention}Joker{}",
+						"{C:attention}#3#{}if a {C:joy_wind}WIND{C:attention} Joker{} is owned",
+					},
+				},
+			},
 		},
 		Tarot = {
 		},

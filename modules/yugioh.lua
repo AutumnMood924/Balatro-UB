@@ -218,6 +218,82 @@ local jokers = {
 			end
 		end,
 	},
+	"enraged_battle_ox", enraged_battle_ox = {
+		pos = { x = 5, y = 0 },
+		blueprint_compat = true,
+		eternal_compat = true,
+		rarity = 1,
+		cost = 5,
+		loc_vars = function(self, info_queue, card)
+			if not JoyousSpring.config.disable_tooltips and not card.fake_card and not card.debuff then
+			end
+			return { vars = { card.ability.extra.chips } }
+		end,
+		generate_ui = JoyousSpring.generate_info_ui,
+		set_sprites = JoyousSpring.set_back_sprite,
+		config = {
+			extra = {
+				joyous_spring = JoyousSpring.init_joy_table {
+					attribute = "EARTH",
+					monster_type = "BeastWarrior",
+				},
+				chips = 40,
+			},
+		},
+		calculate = function(self, card, context)
+			if JoyousSpring.can_use_abilities(card) then
+				if context.other_joker and (JoyousSpring.is_monster_type(context.other_joker, "Beast") or JoyousSpring.is_monster_type(context.other_joker, "BeastWarrior") or JoyousSpring.is_monster_type(context.other_joker, "WingedBeast")) then
+					return {chips = card.ability.extra.chips}
+				end
+			end
+		end,
+	},
+	"element_dragon", element_dragon = {
+		pos = { x = 6, y = 0 },
+		blueprint_compat = true,
+		eternal_compat = true,
+		rarity = 1,
+		cost = 6,
+		loc_vars = function(self, info_queue, card)
+			if not JoyousSpring.config.disable_tooltips and not card.fake_card and not card.debuff then
+			end
+			return { vars = { card.ability.extra.mult, card.ability.extra.bonus_mult,card.ability.extra.retriggers ~= 1 and (card.ability.extra.retriggers.." times ") or "" } }
+		end,
+		generate_ui = JoyousSpring.generate_info_ui,
+		set_sprites = JoyousSpring.set_back_sprite,
+		config = {
+			extra = {
+				joyous_spring = JoyousSpring.init_joy_table {
+					attribute = "LIGHT",
+					monster_type = "Dragon",
+				},
+				mult = 15,
+				bonus_mult = 5,
+				retriggers = 1,
+			},
+		},
+		calculate = function(self, card, context)
+			if JoyousSpring.can_use_abilities(card) then
+				if context.joker_main then
+					for i = 1, #G.jokers.cards do
+						local this_card = G.jokers.cards[i]
+						if JoyousSpring.is_attribute(this_card, "FIRE") then
+							return { mult = card.ability.extra.mult + card.ability.extra.bonus_mult }
+						end
+					end
+					return { mult = card.ability.extra.mult }
+				end
+				if context.retrigger_joker_check and context.other_card == card then
+					for i = 1, #G.jokers.cards do
+						local this_card = G.jokers.cards[i]
+						if JoyousSpring.is_attribute(this_card, "WIND") then
+							return { repetitions = card.ability.extra.retriggers }
+						end
+					end
+				end
+			end
+		end,
+	},
 }
 
 local oddities = {
