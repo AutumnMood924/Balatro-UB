@@ -294,6 +294,61 @@ local jokers = {
 			end
 		end,
 	},
+	"element_doom", element_doom = {
+		pos = { x = 7, y = 0 },
+		blueprint_compat = true,
+		eternal_compat = true,
+		rarity = 1,
+		cost = 6,
+		loc_vars = function(self, info_queue, card)
+			if not JoyousSpring.config.disable_tooltips and not card.fake_card and not card.debuff then
+			end
+			return { vars = { card.ability.extra.mult, card.ability.extra.bonus,card.ability.extra.retriggers ~= 1 and (card.ability.extra.retriggers.." times ") or "" } }
+		end,
+		generate_ui = JoyousSpring.generate_info_ui,
+		set_sprites = JoyousSpring.set_back_sprite,
+		config = {
+			extra = {
+				joyous_spring = JoyousSpring.init_joy_table {
+					attribute = "DARK",
+					monster_type = "Fiend",
+				},
+				mult = 15,
+				bonus = 10,
+				retriggers = 1,
+			},
+		},
+		calculate = function(self, card, context)
+			if JoyousSpring.can_use_abilities(card) then
+				if context.joker_main then
+					local found_earth = false
+					for i = 1, #G.jokers.cards do
+						local this_card = G.jokers.cards[i]
+						if JoyousSpring.is_attribute(this_card, "EARTH") then
+							found_earth = true
+						end
+					end
+					return { mult = card.ability.extra.mult, func = found_earth and function()
+						for i=1, #G.play.cards do
+							G.play.cards[i].ability.perma_bonus = G.play.cards[i].ability.perma_bonus or 0
+							G.play.cards[i].ability.perma_bonus = G.play.cards[i].ability.perma_bonus + (card.ability.extra.bonus)
+							G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function()
+								card_eval_status_text(G.play.cards[i], 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.CHIPS, instant = true})
+							return true end}))
+						end
+					end }
+				end
+				if context.retrigger_joker_check and context.other_card == card then
+					for i = 1, #G.jokers.cards do
+						local this_card = G.jokers.cards[i]
+						if JoyousSpring.is_attribute(this_card, "WIND") then
+							return { repetitions = card.ability.extra.retriggers }
+						end
+					end
+				end
+			end
+		end,
+	},
 }
 
 local oddities = {

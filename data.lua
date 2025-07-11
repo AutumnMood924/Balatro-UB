@@ -264,7 +264,7 @@ data.buffer_register_funcs = {
 	end,
 }
 
-local BUB_JoyousSpring = next(SMODS.find_mod("JoyousSpring")) and {
+local BUB_JoyousSpring = (next(SMODS.find_mod("JoyousSpring")) and AMM.mod.config.joyousspringify) and {
 		["warrior"] = { attribute = "LIGHT", monster_type = "Warrior" },
 		["thief"] = { attribute = "DARK", monster_type = "Warrior" },
 		["monk"] = { attribute = "EARTH", monster_type = "Warrior" },
@@ -318,6 +318,8 @@ local BUB_JoyousSpring = next(SMODS.find_mod("JoyousSpring")) and {
 		["jevil"] = { attribute = "DARK", monster_type = "Fiend" },
 		["roaring_knight"] = { attribute = "DARK", monster_type = "Warrior" },
 		["jackenstein"] = { attribute = "DARK", monster_type = "Warrior" },
+		
+		["sunny"] = { attribute = "DARK", monster_type = "Warrior" },
 	} or nil
 
 

@@ -32,6 +32,7 @@ BUB.DR = NFS.load(BUB.mod.path.."modules/deltarune.lua")()
 if next(SMODS.find_mod("JoyousSpring")) then
 	BUB.YGO = NFS.load(BUB.mod.path.."modules/yugioh.lua")()
 end
+BUB.OMORI = NFS.load(BUB.mod.path.."modules/omori.lua")()
 
 SMODS.Atlas{
 	key = "modicon",

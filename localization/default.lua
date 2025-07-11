@@ -844,6 +844,32 @@ return {
 					},
 				},
 			},
+			j_bub_element_doom = {
+				name = "{C:joy_effect}Element Doom",
+				text = {
+					{
+						"{C:mult}+#1#{} Mult",
+						"Each played card gains {C:chips}+#2#{} Chips",
+						"permanently if an {C:joy_earth}EARTH{C:attention} Joker{} is owned",
+						"{C:attention}Retrigger{} this {C:attention}Joker{}",
+						"{C:attention}#3#{}if a {C:joy_wind}WIND{C:attention} Joker{} is owned",
+					},
+				},
+			},
+			j_bub_sunny = {
+				name = {
+					"Sunny",
+					"{s:0.5}OMORI",
+				},
+				text = {
+					{
+						"This {C:attention}Joker{} gains {C:gold}+#1#{}",
+						"{C:attention}Ascension Power{} every {C:attention}#2#{C:inactive} [#4#]{}",
+						"played and unscoring card#3#",
+						"{C:inactive}(Currently: {C:gold}+#5#{C:inactive} Ascension Power)"
+					},
+				},
+			},
 		},
 		Tarot = {
 		},
